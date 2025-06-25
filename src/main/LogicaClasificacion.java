@@ -4,61 +4,69 @@ import java.util.*;
 
 public class LogicaClasificacion {
 
-    /**
-     * Invierte una cadena de texto utilizando una pila (Stack).
-     *
-     * @param texto Cadena original a invertir.
-     * @return Cadena invertida.
-     *
-     *         Ejemplo:
-     *         Entrada: "Hola Mundo"
-     *         Salida: "odnuM aloH"
-     */
     public String invertirCadena(String texto) {
-        return "";
-    }
+        Stack<Character> pila = new Stack<>();
+     for (char c : texto.toCharArray()) {    pila.push(c);
+        }
 
-    /**
-     * Verifica si los símbolos de paréntesis, corchetes y llaves están bien
-     * balanceados.
-     *
-     * @param expresion Cadena con símbolos.
-     * @return true si está balanceada, false en caso contrario.
-     *
-     *         Ejemplo:
-     *         Entrada: "{[()]}"
-     *         Salida: true
-     */
+         StringBuilder invertido = new StringBuilder();
+           while (!pila.isEmpty()) {
+         invertido.append(pila.pop());
+     }
+
+        return invertido.toString();
+    }
     public boolean validarSimbolos(String expresion) {
-        return false;
+     Stack<Character> pila = new Stack<>();
+              Map<Character, Character> mapa = Map.of(
+            ')', '(',
+          ']', '[',
+        '}', '{'
+        );
+
+        for (char c : expresion.toCharArray()) {
+            if (mapa.containsValue(c)) {
+                pila.push(c); 
+          } else if (mapa.containsKey(c)) {
+              if (pila.isEmpty() || pila.pop() != mapa.get(c)) {
+                    return false;
+       }
+                }
+        }
+
+        return pila.isEmpty(); 
     }
 
-    /**
-     * Ordena una pila de enteros en orden ascendente usando otra pila auxiliar.
-     *
-     * @return Lista ordenada.
-     *
-     *         Ejemplo:
-     *         Entrada: [3, 1, 4, 2]
-     *         Salida: [1, 2, 3, 4]
-     */
     public List<Integer> ordenarPila(Stack<Integer> pila) {
+        Stack<Integer> auxiliar = new Stack<>();
 
-        return new ArrayList<>();
+        while (!pila.isEmpty()) {
+int temp = pila.pop();
+                while (!auxiliar.isEmpty() && auxiliar.peek() > temp) {
+                pila.push(auxiliar.pop());
+              }
+            auxiliar.push(temp);
+        }
+
+       List<Integer> resultado = new ArrayList<>();
+            while (!auxiliar.isEmpty()) {
+             resultado.add(auxiliar.pop());
+     }
+
+        return resultado;
     }
+ public List<Integer> clasificarPorParidad(LinkedList<Integer> original) {
+        LinkedList<Integer> pares = new LinkedList<>();
+     LinkedList<Integer> impares = new LinkedList<>();
 
-    /**
-     * Clasifica una lista de enteros separando pares e impares.
-     * Usa LinkedList para mantener el orden de inserción.
-     *
-     * @return Lista con pares primero, luego impares.
-     *
-     *         Ejemplo:
-     *         Entrada: [1, 2, 3, 4, 5, 6]
-     *         Salida: [2, 4, 6, 1, 3, 5]
-     */
-    public List<Integer> clasificarPorParidad(LinkedList<Integer> original) {
-
-        return new ArrayList<>();
+        for (int num : original) {
+            if (num % 2 == 0) {
+                   pares.add(num);
+               } else {
+                impares.add(num);
+      }
+        }
+        pares.addAll(impares);
+        return pares;
     }
 }
