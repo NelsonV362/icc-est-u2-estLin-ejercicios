@@ -50,8 +50,8 @@ int temp = pila.pop();
 
        List<Integer> resultado = new ArrayList<>();
             while (!auxiliar.isEmpty()) {
-             resultado.add(auxiliar.pop());
-     }
+    resultado.add(0, auxiliar.pop()); 
+}
 
         return resultado;
     }
